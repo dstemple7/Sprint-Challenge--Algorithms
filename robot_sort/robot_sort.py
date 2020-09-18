@@ -93,12 +93,58 @@ class SortingRobot:
         return self._light == "ON"
 
     def sort(self):
-        """
-        Sort the robot's list.
-        """
-        # Fill this out
-        pass
+        """Sort the robot's list."""
+        # robot starts with empty hands
+        # robot starts at index [0]
+        # robot can swap 1 item at a time
+        # list in front of robot is unsorted
+        # if possible to move, possible to swap
+        # start with picking up item in front and moving to index [1]
+        # compare item in hand with item at index [1]
+        # if bigger, swap
+        
+        # set the state of the light to be on, binary start/stop of sort function that kicks off loop
+        # if the light is on the function runs, starting with rightward moving sort then once light is off and that stops, leftward moving sort, then recurse, then once that's all done the lights stay off and function is over
+        # use light to start & stop loop, otherwise will never start or will have an infinite loop
+        self.set_light_on()
 
+        # if light is on, keep looping. if off, looping ends and starts leftward moving 
+        # once the leftward moving loop completes, light will be off and sort function will be done
+        while self.light_is_on() == True:
+            # turn light off to do comparison, at end it will turn light back on and loop or stay off and loop will be over
+            self.set_light_off()
+            
+            # if it's possible to move right, swap held item item w/one in front & move right
+            while self.can_move_right() == True:
+                # to start, empty hand vs. item in front, picks up item in front and makes that spot empty
+                self.swap_item()
+                self.move_right()
+
+                # compare item and if = 1, meaning the held item is greater in value than the one in front of robot, swap item & set light on
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    # swapped item so loop
+                    self.set_light_on()
+
+            else:
+                # swap item held with one in front bc can't move right so it's the bigger(est) item, start moving left or be done
+                self.swap_item()
+
+            # while it's possible to move left, swap item and move left
+            while self.can_move_left() == True:
+                self.swap_item()
+                self.move_left()
+
+                # if comparing held item to item in front = -1, meaning the held item is smaller(est), swap item and turn the light back on
+                # turn light back on so keep looping
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    self.set_light_on()
+
+            # can't move left so swap item and start moving right or be done
+            else:
+                # swap held item with one in front
+                self.swap_item()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line

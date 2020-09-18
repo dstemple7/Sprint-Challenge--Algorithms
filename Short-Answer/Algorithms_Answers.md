@@ -2,13 +2,13 @@
 
 ## Exercise I
 
-a)
+a) this is a while loop and the runtime complexity is O(n)
 
 
-b)
+b) this is a nested while loop and the runtime complexity is O(n^2)
 
 
-c)
+c) this is an if statement and the runtime complexity is O(n)
 
 ## Exercise II
 
